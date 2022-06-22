@@ -1,0 +1,7 @@
+{% macro navItems(references, liClass = 'dropdown', aClass = 'dropdown-item', aAttr = 'data-hash data-hash-offset="95"') %}
+{% for ref in references %}
+<li class="{{ liClass }}">
+    <a class="{{ aClass }} {{ ref['active'] }}" {{ aAttr }} href="{{ ref['href'] }}">{{ ref['value'] }}</a>
+</li>
+{% endfor %}
+{% endmacro %}

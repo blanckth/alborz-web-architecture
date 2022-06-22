@@ -1,0 +1,7 @@
+Flask
+Flask-Session
+Flask-SQLAlchemy
+requests
+Babel
+python-dateutil
+httpagentparser

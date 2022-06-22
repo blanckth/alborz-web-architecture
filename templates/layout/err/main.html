@@ -1,0 +1,43 @@
+<div role="main" class="main">
+
+    <section class="page-header page-header-classic">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li><a href="/">خانه</a></li>
+                        <li class="active">صفحات</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col p-static mt-1 mb-n1">
+                    <h1 data-title-border>{{ Err['code'] }} - {{ Err['title'] }}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="http-error">
+            <div class="row justify-content-center py-3">
+                <div class="col-md-7 text-center">
+                    <div class="http-error-main">
+                        <h2>{{ Err['code'] }}</h2>
+                        <p>{{ Err['explain'] }}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 mt-md-0">
+                    <h4 class="text-primary">برخی لینک های مفید</h4>
+                    <ul class="nav nav-list flex-column">
+                        {% for ref in references %}
+                        <li class="dropdown">
+                            <a class="dropdown-item dropdown-toggle {{ ref['active'] }}" href="{{ ref['href'] }}">{{ ref['value'] }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

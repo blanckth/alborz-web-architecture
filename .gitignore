@@ -1,0 +1,11 @@
+**/__pycache__
+**/__pycache__/*
+/.vscode
+/assets/*
+!/assets/sass
+/db/*
+/flask_session
+/flaskVenv
+/static/*
+/upload
+/req.txt

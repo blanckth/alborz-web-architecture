@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html dir="{% block htmlDir %}rtl{% endblock htmlDir %}" lang="{% block htmlLang %}fa{% endblock htmlLang %}" class="{% block htmlClass %}{% endblock %}">
+    <head>
+        {% include "_partial/head/meta/basic.html" %}
+        <title>{% block LogoTitle %}Blanck - {% endblock %}{% block subTitle required %}{% endblock %}</title>
+        {# SEO Meta Tags #}
+        <meta name="keywords" content="{% block metaKeys %}Python, Flask, Jinja Template{% endblock %}">
+        <meta name="description" content="{% block metaDesc %}Porto - Responsive Python Flask Jinja{% endblock %}">
+        <meta name="author" content="{% block metaAuthor %}Blanckth{% endblock %}">
+        {# SEO Meta Tags #}
+        {# Bootstrap RTL Default Stylesheet #}
+            {% block bootstrapStyle %}
+                <link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+            {% endblock %}
+        {# Bootstrap Stylesheet #}
+        {# Fontawesome-free Stylesheet #}
+            <link rel="stylesheet" href="/static/lib/fontawesome-free/css/all.min.css">
+        {# Fontawesome-free Stylesheet #}
+        {# Additional Styles #}
+        {% block addStyle %}{% endblock %}
+        {# Additional Styles #}
+        {# Theme Styles #}
+        {% block themeStyle %}{% endblock %}
+        {# Theme Styles #}
+        {# Demo Styles #}
+        {% block demoStyle %}{% endblock %}
+        {# Demo Styles #}
+        {# Skin Styles #}
+        {% block skinStyle %}{% endblock %}
+        {# Skin Styles #}
+        {# ICONS #}
+        <link rel="shortcut icon" href="/static/img/icon/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="/static/img/icon/apple-touch-icon.png">
+        {# ICONS #}
+        {# Custom Style #}
+        <link rel="stylesheet" href="{% block customStyle %}/static/css/custom.css{% endblock %}" type="text/css">
+        {# Custom Style #}
+        {# HEAD Libs #}
+        {% block headLibs %}{% endblock %}
+        {# HEAD Libs #}
+    </head>
+    <body {% block bodyAttr %}{% endblock %}>
+        <div class="body">
+            {# HEADER #}
+            {% block Header %}{% endblock %}
+            {# HEADER #}
+           {# <main> #}
+                {% block Main %}{% endblock %}
+           {# </main> #}
+           {#} <footer> {#}
+                {% block Footer %}{% endblock %}
+           {#} </footer> {#}
+        </div>
+        {# Global Libs #}
+        {% block globLibs %}
+            <script src="/static/lib/jquery/jquery.min.js"></script>
+            <script src="/static/lib/popper/umd/popper.min.js"></script>
+            <script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+            <script src="/static/lib/common/common.min.js"></script>
+        {% endblock %}
+        {# Global Libs #}
+        {# BODY Libs #}
+        {% block bodyLibs %}{% endblock %}
+        {# BODY Libs #}
+    </body>
+</html>
+

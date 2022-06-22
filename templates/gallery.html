@@ -1,0 +1,27 @@
+{% extends "layout/base.html" %}
+
+{% block subTitle %} GALLERY {% endblock %}
+
+{% block addStyle %}
+    {% include "_partial/head/style/partolib.html" %}
+{% endblock %}
+
+{% block themeStyle %}
+    {% include "_partial/head/style/partotheme.html" %}
+{% endblock %}
+
+{% block skinStyle %}
+    {% include "_partial/head/style/partoskin.html" %}
+{% endblock %}
+
+{% block headLibs %}
+    {% include "_partial/head/script/parto.html" %}
+{% endblock %}
+
+{% block Header %}
+    {% include "layout/landingpage/header.html" %}
+{% endblock %}
+
+{% block globLibs %}
+    {% include "_partial/body/script/porto.html" %}
+{% endblock %}
