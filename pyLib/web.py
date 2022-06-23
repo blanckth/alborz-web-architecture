@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, session
 from functools import wraps
-from pyLib.db.models import Reference
+from pyLib.db.models import HReference
 
 
 
@@ -16,7 +16,7 @@ def escape(s):
 # Error Message Template
 def apology(error, err, code=400):
     if code >= 400 and code < 500:
-        refs = Reference._refList('')
+        refs = HReference._hrefList('')
         return render_template('error/400.html',references = refs, Err = err, error = error), code
     
 

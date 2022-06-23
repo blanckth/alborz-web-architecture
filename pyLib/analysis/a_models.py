@@ -1,20 +1,19 @@
-from http import server
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.sql import *
+from sqlalchemy.orm import *
 from pyLib.analysis.a_db import a_Base, adb_session
-
 
 class ASession(a_Base):
 
     __tablename__ = 'sessions'
     id = Column('session_id', Integer, primary_key=True, nullable=False)
-    ip = Column('ip', String(16), nullable=False)
-    continent = Column('continent', String, nullable=False, server_default=text(''))
-    country = Column('country', String, nullable=False, server_default=text(''))
-    city = Column('city', String, nullable=False, server_default=text(''))
-    os = Column('os', String, nullable=False, server_default=text(''))
-    browser = Column('browser', String, nullable=False, server_default=text(''))
-    session = Column('session', String, nullable=False, server_default=text(''))
+    ip = Column('ip', String, nullable=False)
+    continent = Column('continent', String, nullable=False, server_default=text('continent'))
+    country = Column('country', String, nullable=False, server_default=text('country'))
+    city = Column('city', String, nullable=False, server_default=text('city'))
+    os = Column('os', String, nullable=False, server_default=text('os'))
+    browser = Column('browser', String, nullable=False, server_default=text('browser'))
+    session = Column('session', String, nullable=False, server_default=text('session'))
     created_at = Column('created_at', DateTime, nullable=False, server_default=func.now())
 
     def _id_by_ip(sip):
@@ -79,34 +78,42 @@ class APage(a_Base):
             return page[0]
         return -1
 
+    def _page_by_name(pname, phref):
+        QUERY = select(APage).where(and_(APage.name == pname, APage.href == phref))
+        page = adb_session.execute(QUERY).first()
+        if page:
+            return page[0]
+        return -1
 
-    def _new_page(data):
-        new_p = APage(name = data["name"], href = data["href"])
+    def _new_page(pname, phref):
+        new_p = APage(name = pname, href = phref)
         TRY = 10
         while True:
-            isNew = APage._id_by_name(data["name"], data["href"])
+            isNew = APage._page_by_name(pname, phref)
             if not isNew == -1:
-                return -1
+                return isNew
             adb_session.add(new_p)
             try:
                 adb_session.commit()
-                return APage._id_by_name(data["name"], data["href"])
+                return APage._page_by_name(pname, phref)
             except:
                 adb_session.rollback()
                 if TRY > 0:
                     TRY -= 1
                 else:
-                    return -2
+                    return -1
 
 
 class Visit(a_Base):
 
-    __tablename__ = 'Visits'
+    __tablename__ = 'visits'
 
     id = Column('visit_id', Integer, primary_key=True, nullable=False)
-    sessid = Column('sess_id', Integer, ForeignKey=("sessions.session_id"), nullable=False)
-    pageid = Column('p_id', Integer, ForeignKey=("pages.page_id"), nullable=False)
+    sessid = Column('sess_id', Integer, ForeignKey("sessions.session_id"), nullable=False)
+    pageid = Column('p_id', Integer, ForeignKey("pages.page_id"), nullable=False)
     created_at = Column('created_at', DateTime, nullable=False, server_default=func.now())
+    sessions = relationship("ASession", backref="sessions")
+    pages = relationship("APage", backref="pages")
 
 
     def _id_lastVis(sid, pid):
@@ -117,16 +124,20 @@ class Visit(a_Base):
         return -1
 
 
-    def _new_visit(sid, pid):
-        pageUp = APage._page_by_id(pid)
-        newVis = Visit(sessid = sid, pageid = pid)
+    def _new_visit(sid, pname, phref):
+        pageUp = APage._new_page(pname, phref)
+        if pageUp == -1:
+            return pageUp
+        newVis = Visit(sessid = sid, pageid = pageUp.id)
+        curVis = int(pageUp.visit)
+        upVisit = curVis + 1
         TRY = 20
         while True:
             adb_session.add(newVis)
-            pageUp.visit = int(pageUp.visit) + 1
+            pageUp.visit = upVisit
             try:
                 adb_session.commit()
-                return Visit._id_lastVis(sid, pid)
+                return upVisit
             except:
                 adb_session.rollback()
                 if TRY > 0:

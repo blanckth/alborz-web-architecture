@@ -1,6 +1,7 @@
-from sqlalchemy import BLOB, Column, Integer, String, DateTime
+from sqlalchemy import BLOB, Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.sql import *
-from pyLib.db.database import Base, db_session
+from sqlalchemy.orm import * 
+from pyLib.db.datab import Base, db_session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -14,6 +15,7 @@ HASH_MAX = 120
 class User(Base):
 
     __tablename__ = 'users'
+
     id = Column('user_id', Integer, primary_key=True, nullable=False)
     username = Column('username', String(USERNAME_MAX), unique=True, nullable=False)
     hash = Column('hash', String(HASH_MAX), nullable=False)
@@ -30,7 +32,6 @@ class User(Base):
             return result[0]
         return -1
 
-
     # Select USER By ID
     def __USER_by_id(ID: int):
         QUERY = select(User).where(User.id == ID)
@@ -39,55 +40,38 @@ class User(Base):
             return result[0]
         return -1
 
-    
-    # Find ID by USERNAME
-    def _id_by_Username(uname: str) -> int:
-        result = User.__USER_by_uname(uname)
-        if result == -1:
-            return result
-        return result.id, result.permission
-
-
-    # Find USERNAME by ID
-    def _username_by_id(ID: int):
-        result = User.__USER_by_id(ID)
-        if result == -1:
-            return result
-        return result.username, result.permission
-
-
     # Check password Hash Validation
     def _validate_password(uname: str, passw: str) -> int:
         result = User.__USER_by_uname(uname)
         if result == -1:
             return result
         if check_password_hash(result.hash, passw):
-            return result.id, result.permission
+            return result
         return -2
 
-
     # Insert New USER
-    def new_user(uname: str, passw: str, perm: int = 0) -> int:
+    def _new_user(uname: str, passw: str, perm: int = 0) -> int:
         TRY = 10
         newUser = User(username = uname, hash = generate_password_hash(passw), permission = perm)
         while True:
-            if User.__USER_by_uname(uname) != -1:
-                return -1
+            user = User.__USER_by_uname(uname)
+            if user != -1:
+                return user
             db_session.add(newUser)
             try:
                 db_session.commit()
-                return User._id_by_Username(uname)
+                return User.__USER_by_uname(uname)
             except:
                 db_session.rollback()
                 print("Wait for connection...")
                 if TRY > 0:
                     TRY -= 1
                 else:
-                    return -2
+                    return -1
     
 
     # Update user USERNAME
-    def update_username(uname: str, passw: str, nuname: str) -> int:
+    def _update_username(uname: str, passw: str, nuname: str) -> int:
         TRY = 10
         user = User.__USER_by_uname(uname)
         if user == -1:
@@ -101,7 +85,7 @@ class User(Base):
                 user.username = nuname
                 user.updated_at = func.now()
                 db_session.commit()
-                return 0
+                return user
             except:
                 db_session.rollback()
                 print("Wait for connection...")
@@ -110,9 +94,8 @@ class User(Base):
                 else:
                     return -4
     
-
     # Update user PASSWORD
-    def update_password(uname: str, passw: str, npassw: str):
+    def _update_password(uname: str, passw: str, npassw: str):
         TRY = 10
         user = User.__USER_by_uname(uname)
         if user == -1:
@@ -125,7 +108,7 @@ class User(Base):
                 user.hash = newHash
                 user.updated_at = func.now()
                 db_session.commit()
-                return 0
+                return user
             except:
                 db_session.rollback()
                 print("Wait for connection...")
@@ -140,17 +123,19 @@ class User(Base):
 
 
 # REFERENCE Object
-class Reference(Base):
-    __tablename__ = 'references'
-    id = Column('ref_id', Integer, primary_key=True, nullable=False)
-    name = Column('name', String, unique=True, nullable=False)
-    value = Column('value', String, unique=True, nullable=False)
+class HReference(Base):
+
+    __tablename__ = 'hrefs'
+
+    id = Column('href_id', Integer, primary_key=True, nullable=False)
+    name = Column('name', String, nullable=False)
+    value = Column('value', String, nullable=False)
     href = Column('href', String, nullable=False)
     create_at = Column('created_at', DateTime, server_default=func.now(), nullable=False)
     updated_at = Column('updated_at', DateTime, server_default=func.now(), nullable=False)
     
-    def _refList(act: str):
-        REFS = select(Reference)
+    def _hrefList(act: str):
+        REFS = select(HReference)
         REFS = db_session.execute(REFS).all()
         refs = []
         for r in REFS:
@@ -160,17 +145,19 @@ class Reference(Base):
         return refs
 
     def _newRef(rname: str, rvalue: str, rhref: str):
-        QUERY = select(Reference).where(or_(Reference.name == rname, Reference.value == rvalue))
+        QUERY = select(HReference).where(HReference.name == rname)
+        print(QUERY)
         result = db_session.execute(QUERY).first()
         if result:
-            return -1
-        newref = Reference(name = rname, value = rvalue, href = rhref)
+            return result[0]
+        newref = HReference(name = rname, value = rvalue, href = rhref)
         TRY = 10
         while True:
             db_session.add(newref)
             try:
                 db_session.commit()
-                return 0
+                newref = db_session.execute(QUERY).first()
+                return newref[0]
             except:
                 db_session.rollback()
                 if TRY > 0:
@@ -178,14 +165,13 @@ class Reference(Base):
                 else:
                     return -2
 
+# REFERENCES CATEGORY
+class RefCat(Base):
 
-# UPLOADIMAGE Object
-class upimage(Base):
-    __tablename__ = 'upimages'
-    id = Column('img_id', Integer, primary_key=True, nullable=False)
-    name = Column('name', String, nullable=False)
-    blob = Column('blob', BLOB, nullable=False)
-    href = Column('href', String, nullable=False)
-    create_at = Column('created_at', DateTime, server_default=func.now(), nullable=False)
-    updated_at = Column('updated_at', DateTime, server_default=func.now(), nullable=False)
-    
+    __tablename__ = 'refcats'
+
+    id = Column('refcat_id', Integer, primary_key=True, nullable=False)
+    name = Column('name', String, unique=True, nullable=False)
+    href_id = Column('href_id', Integer, ForeignKey('hrefs.href_id'), nullable=False)
+    hrefs = relationship('HReference', backref='hrefs')
+
