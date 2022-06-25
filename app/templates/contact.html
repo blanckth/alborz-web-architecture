@@ -1,0 +1,96 @@
+{% extends "layout/base.html" %}
+
+{% block htmlClass %}sticky-header-reveal{% endblock %}
+
+{% block subTitle %} ارتباط-با-ما {% endblock %}
+
+{% block addStyle %}
+    {% include "_partial/head/style/partolib.html" %}
+{% endblock %}
+
+{% block themeStyle %}
+    {% include "_partial/head/style/partotheme.html" %}
+{% endblock %}
+
+{% block skinStyle %}
+    {% include "_partial/head/style/partoskin.html" %}
+{% endblock %}
+
+{% block headLibs %}
+    {% include "_partial/head/script/parto.html" %}
+{% endblock %}
+
+{% block Header %}
+    {% include "layout/landingpage/header.html" %}
+{% endblock %}
+
+{% block Main %}
+    {% include "layout/contact/main.html" %}
+{% endblock %}
+
+{% block Footer %}
+    {% include "layout/landingpage/footer.html" %}
+{% endblock %}
+
+{% block globLibs %}
+    {% include "_partial/body/script/porto.html" %}
+{% endblock %}
+
+{% block bodyLibs %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEn4c_T1rFt7ltf_oNavnjND8dDPm4KQs"></script>
+<script>
+
+    /*
+    Map Settings
+
+        Find the Latitude and Longitude of your address:
+            - https://www.latlong.net/
+            - http://www.findlatitudeandlongitude.com/find-address-from-latitude-and-longitude/
+
+    */
+
+    // Map Markers
+    var mapMarkers = [{
+        address: "New York, NY 10017",
+        html: "<strong>New York Office<br>New York, NY 10017",
+        icon: {
+            image: "img/pin.png",
+            iconsize: [26, 46],
+            iconanchor: [12, 46]
+        },
+        popup: true
+    }];
+
+    // Map Initial Location
+    var initLatitude = 40.75198;
+    var initLongitude = -73.96978;
+
+    // Map Extended Settings
+    var mapSettings = {
+        controls: {
+            draggable: (($.browser.mobile) ? false : true),
+            panControl: true,
+            zoomControl: true,
+            mapTypeControl: true,
+            scaleControl: true,
+            streetViewControl: true,
+            overviewMapControl: true
+        },
+        scrollwheel: false,
+        markers: mapMarkers,
+        latitude: initLatitude,
+        longitude: initLongitude,
+        zoom: 11
+    };
+
+    var map = $('#googlemaps').gMap(mapSettings);
+
+    // Map text-center At
+    var mapCenterAt = function(options, e) {
+        e.preventDefault();
+        $('#googlemaps').gMap("centerAt", options);
+    }
+
+</script>
+{% endblock %}

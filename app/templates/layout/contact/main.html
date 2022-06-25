@@ -1,0 +1,79 @@
+<div role="main" class="main">
+    <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+    <div id="googlemaps" class="google-map mt-0" style="height: 500px;"></div>
+
+    <div class="container">
+
+        <div class="row py-4">
+            <div class="col-lg-6">
+
+                <div class="overflow-hidden mb-1">
+                    <h2 class="font-weight-normal text-7 mt-2 mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="200"><strong class="font-weight-extra-bold">ارتباط</strong> با ما</h2>
+                </div>
+                <div class="overflow-hidden mb-4 pb-3">
+                    <p class="mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="400">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
+                </div>
+
+                <form class="contact-form mb-5 mb-lg-0" action="php/contact-form.php" method="POST">
+                    <div class="contact-form-success alert alert-success d-none mt-4">
+                        <strong>موفقیت!</strong> پیام شما به ما ارسال شد.
+                    </div>
+                
+                    <div class="contact-form-error alert alert-danger d-none mt-4">
+                        <strong>خطا!</strong> خطایی در ارسال پیام شما پیش آمد.
+                        <span class="mail-error-message text-1 d-block"></span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-lg-6">
+                            <label class="required font-weight-bold text-dark text-2">نام کامل</label>
+                            <input type="text" value="" data-msg-required="لطفا نام خود را وارد کنید." maxlength="100" class="form-control" name="name" required>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label class="required font-weight-bold text-dark text-2">آدرس ایمیل</label>
+                            <input type="email" value="" data-msg-required="لطفا آدرس ایمیل خود را وارد کنید." data-msg-email="لطفا یک آدرس ایمیل معتبر وارد کنید." maxlength="100" class="form-control text-left" name="email" dir="ltr" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="font-weight-bold text-dark text-2">موضوع</label>
+                            <input type="text" value="" data-msg-required="لطفا موضوع را وارد کنید." maxlength="100" class="form-control" name="subject" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label class="required font-weight-bold text-dark text-2">پیام</label>
+                            <textarea maxlength="5000" data-msg-required="لطفا پیام خود را وارد کنید." rows="8" class="form-control" name="message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input type="submit" value="ارسال پیام" class="btn btn-primary btn-modern" data-loading-text="در حال بارگذاری ...">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-lg-6">
+
+                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="800">
+                    <h4 class="mt-2 mb-1"><strong>دفتر</strong> ما</h4>
+                    <ul class="list list-icons list-icons-style-2 mt-2">
+                        <li class="line-height-9"><i class="fas fa-map-marker-alt top-6"></i> <strong class="text-dark">آدرس:</strong> تبریز، فلکه دانشگاه، برج بلور، طبقه 456</li>
+                        <li class="line-height-9"><i class="fas fa-phone top-6"></i> <strong class="text-dark">تلفن:</strong> <span class="ltr-text">(+98) 456-789</span></li>
+                        <li class="line-height-9"><i class="fas fa-envelope top-6"></i> <strong class="text-dark">ایمیل:</strong> <a href="mailto:mail@example.com">mail@example.com</a></li>
+                    </ul>
+                </div>
+
+                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="950">
+                    <h4 class="pt-5"><strong>ساعات</strong> کاری</h4>
+                    <ul class="list list-icons list-dark mt-2">
+                        <li><i class="far fa-clock top-6"></i> شنبه تا چهارشنبه - 9 ق.ظ تا 5 ب.ظ</li>
+                        <li><i class="far fa-clock top-6"></i> پنج‌شنبه - 9 ق.ظ تا 2 ب.ظ</li>
+                        <li><i class="far fa-clock top-6"></i> جمعه - تعطیل</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

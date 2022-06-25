@@ -1,0 +1,37 @@
+{% extends "layout/base.html" %}
+
+{% block htmlClass %}sticky-header-reveal{% endblock %}
+
+{% block subTitle %} خانه {% endblock %}
+
+{% block addStyle %}
+    {% include "_partial/head/style/partolib.html" %}
+{% endblock %}
+
+{% block themeStyle %}
+    {% include "_partial/head/style/partotheme.html" %}
+{% endblock %}
+
+{% block skinStyle %}
+    {% include "_partial/head/style/partoskin.html" %}
+{% endblock %}
+
+{% block headLibs %}
+    {% include "_partial/head/script/parto.html" %}
+{% endblock %}
+
+{% block Header %}
+    {% include "layout/landingpage/header.html" %}
+{% endblock %}
+
+{% block Main %}
+    {% include "layout/landingpage/main.html" %}
+{% endblock %}
+
+{% block Footer %}
+    {% include "layout/landingpage/footer.html" %}
+{% endblock %}
+
+{% block globLibs %}
+    {% include "_partial/body/script/porto.html" %}
+{% endblock %}
