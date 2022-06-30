@@ -1,8 +1,6 @@
 {% extends "layout/base.html" %}
 
-{% block htmlClass %}sticky-header-reveal{% endblock %}
-
-{% block subTitle %} گالری {% endblock %}
+{% block subTitle %} پنل-صفحه شخصی {% endblock %}
 
 {% block addStyle %}
     {% include "_partial/head/style/partolib.html" %}
@@ -21,11 +19,11 @@
 {% endblock %}
 
 {% block Header %}
-    {% include "layout/landingpage/header.html" %}
+    {% include "layout/err/header.html" %}
 {% endblock %}
 
 {% block Main %}
-    {% include "layout/gallery/main.html" %}
+    {% include "layout/admin/main/profile.html" %}
 {% endblock %}
 
 {% block Footer %}

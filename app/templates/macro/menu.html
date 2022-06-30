@@ -1,0 +1,12 @@
+{% macro menuItems(References) %}
+{% for ref in References %}
+<li class="{% if ref['root'] <= 0 %} dropdown {% else %} dropdown-submenu dropdown-reverse {% endif %}">
+    <a class="dropdown-item {% if ref['root'] <= 0 %} dropdown-toggle {{ ref['active'] }} {% endif %}" href="{{ ref['href'] }}">{{ ref['value'] }}</a>
+    {% if ref['sub'] > 0 %}
+        <ul class="dropdown-menu">
+            {{ menuItems(ref['subs']) }}
+        </ul>
+    {% endif %}
+</li>
+{% endfor %}
+{% endmacro %}

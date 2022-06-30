@@ -1,3 +1,5 @@
+{% import "macro/menu.html" as menuMacro %}
+
 <header id="header" class="header-floating-bar" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'reveal', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 116, 'stickySetTop': '0', 'stickyChangeLogo': false}">
     <div class="header-body header-body-bottom-border">
         <div class="header-container header-container-height-sm container">
@@ -17,11 +19,7 @@
                             <div class="header-nav-main header-nav-main-clone-items header-nav-main-slide header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
                                 <nav class="collapse">
                                     <ul class="nav nav-pills" id="mainNav">
-                                        {% for ref in references %}
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {{ ref['active'] }}" href="{{ ref['href'] }}">{{ ref['value'] }}</a>
-                                            </li>
-                                        {% endfor %}
+                                        {{ menuMacro.menuItems(references) }}
                                     </ul>
                                 </nav>
                             </div>

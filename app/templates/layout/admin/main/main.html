@@ -1,1 +1,37 @@
-HELLO, {{ user['username'] }}!
+<div role="main" class="main">
+    {% include 'layout/admin/title/admin.html' %}
+    <section class="section section-primary border-0 mb-0 appear-animation" data-appear-animation="fadeIn" data-plugin-options="{'accY': -150}">
+        <div class="container">
+            <div class="row counters counters-sm pb-4 pt-3">
+                <div class="col-sm-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="counter">
+                        <i class="icons icon-user text-color-light"></i>
+                        <strong class="text-color-light font-weight-extra-bold" data-to="{{ pages['domain'] }}" data-append="+">0</strong>
+                        <label class="text-4 mt-1 text-color-light">بازدید کلی دامنه</label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="counter">
+                        <i class="icons icon-badge text-color-light"></i>
+                        <strong class="text-color-light font-weight-extra-bold" data-to="{{ pages['home'] }}">0</strong>
+                        <label class="text-4 mt-1 text-color-light">بازدید صفحه اصلی</label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3 mb-5 mb-sm-0">
+                    <div class="counter">
+                        <i class="icons icon-graph text-color-light"></i>
+                        <strong class="text-color-light font-weight-extra-bold" data-to="{{ pages['gallery'] }}">0</strong>
+                        <label class="text-4 mt-1 text-color-light">بازدید نگارخانه</label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="counter">
+                        <i class="icons icon-cup text-color-light"></i>
+                        <strong class="text-color-light font-weight-extra-bold" data-to="{{ pages['about'] }}">0</strong>
+                        <label class="text-4 mt-1 text-color-light">بازدید درباره ما</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

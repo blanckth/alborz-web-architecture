@@ -52,10 +52,10 @@
 
     // Map Markers
     var mapMarkers = [{
-        address: "New York, NY 10017",
-        html: "<strong>New York Office<br>New York, NY 10017",
+        address: "Karaj, Iran",
+        html: "<strong>Alborz Office<br>Karaj, Iran</strong>",
         icon: {
-            image: "img/pin.png",
+            image: "/static/img/pin.png",
             iconsize: [26, 46],
             iconanchor: [12, 46]
         },
@@ -63,8 +63,8 @@
     }];
 
     // Map Initial Location
-    var initLatitude = 40.75198;
-    var initLongitude = -73.96978;
+    var initLatitude = 35.818917;
+    var initLongitude = 50.937672;
 
     // Map Extended Settings
     var mapSettings = {
@@ -81,7 +81,7 @@
         markers: mapMarkers,
         latitude: initLatitude,
         longitude: initLongitude,
-        zoom: 11
+        zoom: 13
     };
 
     var map = $('#googlemaps').gMap(mapSettings);

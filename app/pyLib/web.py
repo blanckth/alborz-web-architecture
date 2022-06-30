@@ -27,7 +27,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
-            return redirect("/admin/login")
+            return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
 
@@ -42,7 +42,7 @@ def super_required(f):
             return redirect("/")
         # Not Super Admin
         if int(session.get("permission")):
-            return redirect("/admin")
+            return redirect("/ap")
         return f(*args, **kwargs)
     return decorated_function
 

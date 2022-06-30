@@ -78,8 +78,8 @@ class APage(a_Base):
             return page[0]
         return -1
 
-    def _page_by_name(pname, phref):
-        QUERY = select(APage).where(and_(APage.name == pname, APage.href == phref))
+    def _page_by_name(pname):
+        QUERY = select(APage).where(APage.name == pname)
         page = adb_session.execute(QUERY).first()
         if page:
             return page[0]
@@ -89,13 +89,13 @@ class APage(a_Base):
         new_p = APage(name = pname, href = phref)
         TRY = 10
         while True:
-            isNew = APage._page_by_name(pname, phref)
+            isNew = APage._page_by_name(pname)
             if not isNew == -1:
                 return isNew
             adb_session.add(new_p)
             try:
                 adb_session.commit()
-                return APage._page_by_name(pname, phref)
+                return APage._page_by_name(pname)
             except:
                 adb_session.rollback()
                 if TRY > 0:

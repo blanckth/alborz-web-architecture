@@ -1,7 +1,5 @@
 <div role="main" class="main">
-    <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-    <div id="googlemaps" class="google-map mt-0" style="height: 500px;"></div>
-
+    {% include 'layout/contact/title.html' %}
     <div class="container">
 
         <div class="row py-4">
@@ -14,7 +12,7 @@
                     <p class="mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="400">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
                 </div>
 
-                <form class="contact-form mb-5 mb-lg-0" action="php/contact-form.php" method="POST">
+                <form class="contact-form mb-5 mb-lg-0" action="/contact" method="POST">
                     <div class="contact-form-success alert alert-success d-none mt-4">
                         <strong>موفقیت!</strong> پیام شما به ما ارسال شد.
                     </div>
@@ -52,7 +50,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="col-lg-6">
 
@@ -76,4 +73,6 @@
             </div>
         </div>
     </div>
+    <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+    <div id="googlemaps" class="google-map mt-0" style="height: 500px;"></div>
 </div>

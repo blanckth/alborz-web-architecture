@@ -1,3 +1,4 @@
+{% import "macro/menu.html" as menuMacro %}
 <header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
     <div class="header-body">
         <div class="header-container container">
@@ -17,11 +18,7 @@
                             <div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
                                 <nav class="collapse">
                                     <ul class="nav nav-pills" id="mainNav">
-                                        {% for ref in references %}
-                                            <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {{ ref['active'] }}" href="{{ ref['href'] }}">{{ ref['value'] }}</a>
-                                            </li>
-                                        {% endfor %}
+                                        {{ menuMacro.menuItems(references) }}
                                     </ul>
                                 </nav>
                             </div>

@@ -1,0 +1,34 @@
+<div role="main" class="main">
+    {% include 'layout/admin/title/images.html' %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام فایل</th>
+                    <th>آدرس</th>
+                    <th>دسته بندی</th>
+                    <th>نمایش در نگارخانه</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for img in images %}
+                    <tr class="{{ img['name'] }}">
+                        <td>{{ img['id'] }}</td>
+                        <td dir="ltr">{{ img['name'] }}</td>
+                        <td dir="ltr">{{ img['href'] }}</td>
+                        <td>{{ img['cat'] }}</td>
+                        <td>{{ img['gal'] }}</td>
+                        <td><button type="button" class="btn btn-outline btn-rounded btn-secondary  btn-with-arrow mb-2" id="{{ img['id'] }}">ویرایش<span><i class="fas fa-chevron-left"></i></span></button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="container">
+            <a href="/images/add"><button type="button" class="btn btn-outline btn-rounded btn-primary  btn-with-arrow mb-2">افزودن نگاره<span><i class="fas fa-chevron-left"></i></span></button></a>
+        </div>
+    </div>
+
+
+</div>
